@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+:root {
+  --background: #07090f;
+  --foreground: #f4f8ff;
+  --muted: #94a3b8;
+  --glass: rgba(255, 255, 255, 0.06);
+  --border-glow: rgba(255, 173, 59, 0.2);
+  --accent: #ff8c2f;
+  --accent-soft: #ffb26b;
+  --font-heading: "Space Grotesk", "Segoe UI", sans-serif;
+  --font-body: "Manrope", "Segoe UI", sans-serif;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-body);
+  --font-heading: var(--font-heading);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body), sans-serif;
+  overflow: hidden;
+}
+
+body::before {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  opacity: 0.22;
+  background-image: radial-gradient(circle at 20% 25%, rgba(255, 140, 47, 0.1), transparent 30%),
+    radial-gradient(circle at 80% 80%, rgba(61, 125, 255, 0.15), transparent 32%),
+    linear-gradient(120deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0));
+}
+
+body::after {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cg fill='%23ffffff'%3E%3Ccircle cx='5' cy='5' r='1'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading), sans-serif;
+}
+
+.snap-shell {
+  scroll-snap-type: none;
+  scroll-behavior: smooth;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.snap-pane {
+  scroll-snap-align: none;
+  min-height: 100vh;
+}
+
+.glass {
+  background: var(--glass);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.glow-border {
+  box-shadow: 0 0 0 1px var(--border-glow), 0 0 24px rgba(255, 140, 47, 0.15);
+}
+
+.glow-text {
+  text-shadow: 0 0 22px rgba(255, 140, 47, 0.55);
+}
+
+* {
+  cursor: none;
+}
+
+@media (pointer: coarse) {
+  * {
+    cursor: auto;
+  }
+}
