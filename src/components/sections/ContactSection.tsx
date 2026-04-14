@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -21,6 +21,7 @@ type SubmissionStatus = "idle" | "sending" | "success" | "error";
 export default function ContactSection() {
   const [status, setStatus] = useState<SubmissionStatus>("idle");
   const [submissionError, setSubmissionError] = useState<string | null>(null);
+  const isSending = status === "sending";
 
   const {
     register,
@@ -105,6 +106,7 @@ export default function ContactSection() {
             Name
             <input
               {...register("name")}
+              disabled={isSending}
               className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 outline-none transition focus:border-orange-300/70 focus:bg-white/10"
               placeholder="Your name"
             />
@@ -115,6 +117,7 @@ export default function ContactSection() {
             <input
               type="email"
               {...register("email")}
+              disabled={isSending}
               className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 outline-none transition focus:border-orange-300/70 focus:bg-white/10"
               placeholder="your@email.com"
             />
@@ -125,6 +128,7 @@ export default function ContactSection() {
             <textarea
               rows={4}
               {...register("message")}
+              disabled={isSending}
               className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 outline-none transition focus:border-orange-300/70 focus:bg-white/10"
               placeholder="Tell me about your project or idea"
             />
@@ -132,13 +136,48 @@ export default function ContactSection() {
           </label>
           <button
             type="submit"
-            disabled={isSubmitting}
-            className="mt-2 rounded-full bg-orange-400 px-5 py-2 text-sm font-semibold text-black hover:bg-orange-300 disabled:cursor-not-allowed disabled:opacity-70"
+            disabled={isSubmitting || isSending}
+            className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-orange-400 px-5 py-2 text-sm font-semibold text-black hover:bg-orange-300 disabled:cursor-not-allowed disabled:opacity-70"
           >
-            {isSubmitting || status === "sending" ? "Sending..." : "Send Message"}
+            {isSubmitting || isSending ? (
+              <>
+                <motion.span
+                  className="inline-block h-3.5 w-3.5 rounded-full border-2 border-black/35 border-t-black"
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 0.7, ease: "linear", repeat: Infinity }}
+                />
+                Sending...
+              </>
+            ) : (
+              "Send Message"
+            )}
           </button>
-          {status === "success" ? <p className="text-sm text-emerald-300">Message sent. I’ll get back to you soon.</p> : null}
-          {status === "error" ? <p className="text-sm text-rose-300">{submissionError}</p> : null}
+
+          <AnimatePresence mode="wait">
+            {status === "success" ? (
+              <motion.p
+                key="success"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                className="rounded-lg border border-emerald-300/30 bg-emerald-400/10 px-3 py-2 text-sm text-emerald-300"
+              >
+                Message sent. I&apos;ll get back to you soon.
+              </motion.p>
+            ) : null}
+
+            {status === "error" ? (
+              <motion.p
+                key="error"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                className="rounded-lg border border-rose-300/30 bg-rose-400/10 px-3 py-2 text-sm text-rose-300"
+              >
+                {submissionError}
+              </motion.p>
+            ) : null}
+          </AnimatePresence>
         </motion.form>
 
         <div className="lg:col-span-2 pt-4 text-xs uppercase tracking-[0.2em] text-slate-400">
