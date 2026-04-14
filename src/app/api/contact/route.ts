@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 import { z } from "zod";
 
 const contactFormSchema = z.object({
@@ -8,12 +8,13 @@ const contactFormSchema = z.object({
   message: z.string().trim().min(10),
 });
 
-const resendApiKey = process.env.RESEND_API_KEY;
-const resend = resendApiKey ? new Resend(resendApiKey) : null;
+const emailUser = process.env.EMAIL_USER;
+const emailPass = process.env.EMAIL_PASS;
+const recipientEmail = "amanuelfirew27@gmail.com";
 
 export async function POST(request: Request) {
-  if (!resend) {
-    return NextResponse.json({ message: "Resend is not configured." }, { status: 500 });
+  if (!emailUser || !emailPass) {
+    return NextResponse.json({ message: "Issue sending email." }, { status: 500 });
   }
 
   try {
@@ -29,9 +30,17 @@ export async function POST(request: Request) {
 
     const { name, email, message } = result.data;
 
-    const { error } = await resend.emails.send({
-      from: "Portfolio Contact <onboarding@resend.dev>",
-      to: ["amanuelfirew27@gmail.com"],
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: emailUser,
+        pass: emailPass,
+      },
+    });
+
+    await transporter.sendMail({
+      from: `Amanuel Firew Lema Portfolio <${emailUser}>`,
+      to: recipientEmail,
       replyTo: email,
       subject: `Portfolio inquiry from ${name}`,
       text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
@@ -49,10 +58,6 @@ export async function POST(request: Request) {
         </div>
       `,
     });
-
-    if (error) {
-      return NextResponse.json({ message: error.message }, { status: 500 });
-    }
 
     return NextResponse.json({ message: "Message sent successfully." }, { status: 200 });
   } catch {
