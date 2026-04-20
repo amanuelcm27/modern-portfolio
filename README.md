@@ -1,82 +1,48 @@
 # Amanuel Firew Lema Portfolio
 
-A modern, interactive one-page portfolio built with Next.js App Router, Tailwind CSS, Framer Motion, and React Three Fiber.
+A modern one-page portfolio that presents a backend-focused full stack and AI engineer.
 
-The site highlights backend engineering, Django specialization, and AI-focused work through immersive visuals, scroll storytelling, 3D interactions, and animated UI sections.
+This site is built to show technical depth, visual polish, and practical engineering experience through scroll-based storytelling, animated sections, 3D interactions, and a strong dark futuristic visual style.
 
-## Highlights
+## What The Portfolio Shows
 
-- Futuristic hero section with animated 3D particle background and blended portrait treatment
-- Smooth section flow with animated reveals and micro-interactions
-- Featured project spotlight for Kazana Lighthouse
-- Interactive projects grid with modal details
-- Animated skills visualization
-- Tech stack node network with hover interactions on desktop
-- Mobile-friendly fallback tech stack list
-- Floating right navigation with desktop hover labels and mobile collapsible menu
-- Contact form with inline validation (Zod + React Hook Form)
-- Server-side email delivery through Resend API route
+The portfolio highlights:
 
-## Sections
+- Backend engineering with Django and REST APIs
+- AI and machine learning work integrated into real systems
+- Full stack development with modern React and Next.js
+- Personal and company projects
+- Technical skill growth across web, mobile, and AI domains
+- Direct contact options for collaboration
 
-- Hero
-- About Me
-- Featured Project (Kazana Lighthouse)
-- Projects
-- Skills
-- Tech Stack
-- Contact
+## Main Sections
+
+- Hero section with an animated cosmic background and blended portrait treatment
+- About section introducing the engineer behind the portfolio
+- Featured project section for Kazana Lighthouse
+- Projects section with company and personal projects
+- Skills section showing experience across tech stacks
+- Tech stack visualization with interactive nodes and mobile fallback
+- Contact section with validated form submission and email delivery
+
+## Key Features
+
+- Smooth animated transitions and scroll storytelling
+- Floating right-side navigation with mobile collapsible menu
+- Interactive project cards with modal details
+- Animated tech stack network with hover states
+- Contact form with inline validation
+- Email delivery through a server API using Gmail SMTP and Nodemailer
 
 ## Tech Stack
 
-- Next.js (App Router)
+- Next.js App Router
 - TypeScript
 - Tailwind CSS
 - Framer Motion
-- Three.js via @react-three/fiber and @react-three/drei
+- Three.js via `@react-three/fiber` and `@react-three/drei`
 - React Hook Form
 - Zod
-- Resend
+- Nodemailer
 
-## Getting Started
 
-Install dependencies:
-
-```bash
-npm install
-```
-
-Run development server:
-
-```bash
-npm run dev
-```
-
-Build for production:
-
-```bash
-npm run build
-```
-
-Start production server:
-
-```bash
-npm run start
-```
-
-## Environment Variables
-
-Create a `.env.local` file in the project root with:
-
-```env
-RESEND_API_KEY=your_resend_api_key
-```
-
-This key is used by the server route at `src/app/api/contact/route.ts` to send contact form submissions to:
-
-- amanuelfirew27@gmail.com
-
-## Notes
-
-- Keep `RESEND_API_KEY` private (do not use `NEXT_PUBLIC_` prefix for secret keys).
-- If email sending fails in production, verify your Resend sender/domain settings.

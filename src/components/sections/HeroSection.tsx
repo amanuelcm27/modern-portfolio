@@ -25,7 +25,7 @@ export default function HeroSection() {
           alt="Blended portrait background"
           fill
           sizes="(max-width: 1024px) 70vw, 50vw"
-          className="object-cover object-top opacity-48 [mask-image:linear-gradient(to_left,black_72%,transparent),linear-gradient(to_bottom,black_72%,transparent)]"
+          className="object-cover object-top opacity-84 [mask-image:linear-gradient(to_left,black_72%,transparent),linear-gradient(to_bottom,black_72%,transparent)]"
           priority
         />
       </div>

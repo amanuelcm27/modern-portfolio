@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Amanuel Firew Lema | Backend & AI Engineer",
   description:
-    "Premium one-page portfolio for Amanuel Firew Lema, Backend Engineer, Django Specialist, and AI Engineer.",
+    "Portfolio of Amanuel Firew Lema, Backend Engineer, Django Specialist, and AI Engineer.",
 };
 
 export default function RootLayout({

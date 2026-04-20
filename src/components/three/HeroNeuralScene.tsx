@@ -39,7 +39,7 @@ function NeuralPoints() {
 
   return (
     <Points ref={ref} positions={sphere} stride={3} frustumCulled>
-      <PointMaterial transparent color="#ffad6c" size={0.027} sizeAttenuation depthWrite={false} />
+      <PointMaterial transparent color="#ffad6c" size={0.036} sizeAttenuation depthWrite={false} />
     </Points>
   );
 }
